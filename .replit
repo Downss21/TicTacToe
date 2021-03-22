@@ -1,2 +1,0 @@
-language = "java"
-run = "cd TicTacToe/src; javac TTTGen.java; java TTTGen"
