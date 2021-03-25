@@ -38,7 +38,7 @@ public class TTTBoard {
 
 	public char getWinner() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0
 	}
 
 	public boolean full() {
