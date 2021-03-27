@@ -18,10 +18,12 @@ public class TTTGenGen {
 		writer.println("writer.println(\"import java.util.Scanner;\");\r\n"
 				+ "		\r\n"
 				+ "		writer.println(\"public class TicTacToe {\");\r\n"
-				+ "		writer.println(\"public static void main(String[] args) {\");\r\n"
-				+ "		writer.println(\"Scanner reader = new Scanner(System.in);\");");
+				+ "		writer.println(\"Scanner reader = new Scanner(System.in);\");"
+				+ "		writer.println(\"int input;");
 		
 		writer.println("char[] board = {' ',' ',' ',' ',' ',' ',' ',' ',' '};");
+		writer.println("String methodName = \"method\";");
+		/*
 		writer.println("			printSelection(writer);"
 				+ "			writer.println(\"System.out.print(\\\"Enter the space you want to play on X: \\\");\");\r\n"
 				+ "			writer.println(\"int input = reader.nextInt();\");\r\n");
@@ -29,21 +31,33 @@ public class TTTGenGen {
 		writer.println("char[] board0 = Arrays.copyOf(board, 9);\r\n"
 				+ "			board0[i0] = 'X';\r\n");
 		writer.println("writer.println(\"if(input == \"+i0+\"); \\n {\");");
+		*/
 				
-		for(int i = 1; i < 9; i++)
+		for(int i = 0; i < 9; i++)
 		{
 			writer.println("for (int i"+i+" = 0; i"+i+" < 9; i"+i+"++) {");
-			writer.println("if (");
+			String invalid = "if (";
 			for (int j = 0; j < i; j++)
 			{
-				writer.print("i"+i+" == i"+j);
+				invalid += "i"+i+" == i"+j;
 				if (j != i - 1)
 				{
-					writer.print(" || ");
+					invalid += " || ";
 				}
 			}
-			writer.println(")\n{\n continue;\n}");
-			writer.println("writer.println(\"if(input == \"+i"+i+"+\"); \\n {\");");
+			invalid += "\n{\ncontinue;\n}";
+			writer.println(invalid);
+			String metaMethod = "methodName"+i;
+			writer.println("String "+metaMethod+" = methodName"+(i -1)+" + i"+i+";");
+			
+			writer.println("writer.println(\"void methodName"+i+" {\\ninput = reader.nextInt();\");");
+			
+			writer.println("for int i = 0; i < 9; i++)\n {\n"
+					+ "writer.println(\"if (input == "+i+")\\n{\\n"
+							+ "\"methodName"+i+"();\"\\n"
+							+ "}\\n"
+							+ "\");\n}\n");
+			
 			
 			/*
 			writer.print("writer.println(");
@@ -57,10 +71,11 @@ public class TTTGenGen {
 			}
 			writer.println(");");
 			*/
+			/*
 			if (i != 8) {
 			writer.println("if(isWon(i"+(i - 1)+", board"+(i - 1)+"))\r\n"
 					+ "			{"
-					+ "				writer.println(\"System.out.print(\\\""+players[(i - 1)%2]+" Won!\\\");\");\r\n"
+					+ "				writer.println(\"System.out.print(\\\""+players[((i - 1)%2)]+" Won!\\\");\");\r\n"
 					+ "             writer.println(\"System.exit(0);\");\r\n"
 					+ "             writer.println(\"}\");\n"
 					+ "				continue;\r\n"
@@ -84,6 +99,7 @@ public class TTTGenGen {
 						+ "}"
 						);
 			}
+			*/
 					
 		}
 		//closing things
