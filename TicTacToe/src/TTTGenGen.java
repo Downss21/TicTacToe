@@ -14,12 +14,13 @@ public class TTTGenGen {
 		writer.println("public class GeneratedGenerator {");
 		writer.println("public static void main(String[] args) throws FileNotFoundException {");
 		writer.println("PrintWriter writer = new PrintWriter(\"TicTacToe.java\");");
+		writer.println("int counter = 0;");
 		
 		writer.println("writer.println(\"import java.util.Scanner;\");\r\n"
 				+ "		\r\n"
 				+ "		writer.println(\"public class TicTacToe {\");\r\n"
-				+ "		writer.println(\"Scanner reader = new Scanner(System.in);\");"
-				+ "		writer.println(\"int input;");
+				+ "		writer.println(\"Scanner reader = new Scanner(System.in);\");\n"
+				+ "		writer.println(\"int input;\");");
 		
 		writer.println("char[] board = {' ',' ',' ',' ',' ',' ',' ',' ',' '};");
 		writer.println("String methodName = \"method\";");
@@ -45,69 +46,42 @@ public class TTTGenGen {
 					invalid += " || ";
 				}
 			}
-			invalid += "\n{\ncontinue;\n}";
+			invalid += ")\n{\ncontinue;\n}";
 			writer.println(invalid);
 			String metaMethod = "methodName"+i;
 			writer.println("String "+metaMethod+" = methodName"+(i -1)+" + i"+i+";");
 			
-			writer.println("writer.println(\"void methodName"+i+" {\\ninput = reader.nextInt();\");");
-			
-			writer.println("for int i = 0; i < 9; i++)\n {\n"
-					+ "writer.println(\"if (input == "+i+")\\n{\\n"
-							+ "\"methodName"+i+"();\"\\n"
-							+ "}\\n"
-							+ "\");\n}\n");
+			writer.println("counter++;");
+			writer.println("writer.println(\"void \"+"+metaMethod+"+\"() {\\ninput = reader.nextInt();\");");
 			
 			
-			/*
-			writer.print("writer.println(");
+			String invalid2 = "if (";
 			for (int j = 0; j <= i; j++)
 			{
-				writer.print("Integer.toString(i"+j+")");
+				invalid2 += "i == i"+j;
 				if (j != i)
 				{
-					writer.print(" + ");
+					invalid2 += " || ";
 				}
 			}
-			writer.println(");");
-			*/
-			/*
-			if (i != 8) {
-			writer.println("if(isWon(i"+(i - 1)+", board"+(i - 1)+"))\r\n"
-					+ "			{"
-					+ "				writer.println(\"System.out.print(\\\""+players[((i - 1)%2)]+" Won!\\\");\");\r\n"
-					+ "             writer.println(\"System.exit(0);\");\r\n"
-					+ "             writer.println(\"}\");\n"
-					+ "				continue;\r\n"
-					+ "			}\r\n"
-					+ "char[] board"+i+" = Arrays.copyOf(board"+(i - 1)+", 9);\r\n"
-					+ "			printBoard(writer, board"+i+");\r\n"
-					+ "			writer.println(\"System.out.print(\\\"Enter the space you want to play on "+players[i%2]+": \\\");\");\r\n"
-					+ "			writer.println(\"input = reader.nextInt();\");\r\n"
-					+ "			board"+i+"[i"+i+"] = '"+players[i%2]+"';\r\n");
-			}
-			else {
-				writer.println("if(isWon(i"+(i - 1)+", board"+(i - 1)+"))\r\n"
-						+ "			{"
-						+ "				writer.println(\"System.out.print(\\\""+players[(i - 1)%2]+" Won!\\\");\");\r\n"
-						+ "             writer.println(\"System.exit(0);\");\r\n"
-						+ "             writer.println(\"}\");\n"
-						+ "				continue;\r\n"
-						+ "			}\r\n"
-						+ "else {\n"
-						+ "writer.println(\"System.out.println(\\\"It's a Tie!\\\");\\n System.exit(0);\\n\");\n"
-						+ "}"
-						);
-			}
-			*/
+			invalid2 += ")\n{\ncontinue;\n}";
+			
+			writer.println("for (int i = 0; i < 9; i++)\n {\n"
+					+ invalid2
+					+ "writer.println(\"if (input == \"+i+\")\\n{\\n"
+							+ "\"+"+metaMethod+"+i+\"();\\n"
+							+ "}\\n"
+							+ "\");\n}\n");
+			writer.println("writer.println(\"}\");");
 					
 		}
 		//closing things
 		for (int i = 0; i < 9; i++)
 		{
-			writer.println("writer.println(\"}\");");
+			//writer.println("writer.println(\"}\");");
 			writer.println("}");
 		}
+		writer.println("System.out.println(counter);");
 		writer.println("writer.println(\"}}\");");
 		
 		writer.println("writer.close();\n}");
