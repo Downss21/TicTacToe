@@ -41,6 +41,36 @@ public class TTTBoard {
 			return false;
 		}
 	}
+	
+	public boolean coolPlaceXorO(char player, int row, int col) {
+		if (board[row][col] == '-')
+		{
+			board[row][col] = player;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@Override
+	public TTTBoard clone() {
+		TTTBoard newBoard = new TTTBoard();
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				newBoard.coolPlaceXorO(board[i][j], i, j);
+			}
+		}
+		return newBoard;
+	}
+
+	public boolean canPlace(int row, int col)
+	{
+		return board[row][col] == '-';
+	}
 
 	public char getWinner() {
 		String lines[] = new String[8];
@@ -57,7 +87,7 @@ public class TTTBoard {
 			lines[(2 * i + 1)] = lineV;
 		}
 		lines[6] = Character.toString(board[0][0]) + board[1][1] + board[2][2];
-		lines[7] = Character.toString(board[0][2]) + board[1][1] + board[3][0];
+		lines[7] = Character.toString(board[0][2]) + board[1][1] + board[2][0];
 
 		for (int i = 0; i < lines.length; i++)
 		{
