@@ -25,25 +25,29 @@ public class TTTGenGen {
 		writer.println("			printSelection(writer);"
 				+ "			writer.println(\"System.out.print(\\\"Enter the space you want to play on X: \\\");\");\r\n"
 				+ "			writer.println(\"int input = reader.nextInt();\");\r\n");
-		writer.println("for (int i0 = 0; i0 < 9; i0++) {");
+		writer.println("for (int X0 = 0; X0 < 9; X0++) {");
 		writer.println("char[] board0 = Arrays.copyOf(board, 9);\r\n"
-				+ "			board0[i0] = 'X';\r\n");
-		writer.println("writer.println(\"if(input == \"+i0+\"); \\n {\");");
+				+ "			board0[X0] = 'X';\r\n");
+		writer.println("writer.println(\"if(input == \"+X0+\"); \\n {\");");
 				
 		for(int i = 1; i < 9; i++)
 		{
+			if (i%2 == 1)
+			{
+				writer.println("int O"+i+" = i"+i);
+			}
 			writer.println("for (int i"+i+" = 0; i"+i+" < 9; i"+i+"++) {");
 			writer.println("if (");
 			for (int j = 0; j < i; j++)
 			{
-				writer.print("i"+i+" == i"+j);
+				writer.print(players[(i - 1)%2]+i+" == "+players[(j + 1)%2]+j);
 				if (j != i - 1)
 				{
 					writer.print(" || ");
 				}
 			}
 			writer.println(")\n{\n continue;\n}");
-			writer.println("writer.println(\"if(input == \"+i"+i+"+\"); \\n {\");");
+			writer.println("writer.println(\"if(input == \"+"+players[(i - 1)%2]+i+"+\"); \\n {\");");
 			
 			/*
 			writer.print("writer.println(");
@@ -58,7 +62,7 @@ public class TTTGenGen {
 			writer.println(");");
 			*/
 			if (i != 8) {
-			writer.println("if(isWon(i"+(i - 1)+", board"+(i - 1)+"))\r\n"
+			writer.println("if(isWon("+players[(i - 1)%2]+(i - 1)+", board"+(i - 1)+"))\r\n"
 					+ "			{"
 					+ "				writer.println(\"System.out.print(\\\""+players[(i - 1)%2]+" Won!\\\");\");\r\n"
 					+ "             writer.println(\"System.exit(0);\");\r\n"
@@ -69,10 +73,10 @@ public class TTTGenGen {
 					+ "			printBoard(writer, board"+i+");\r\n"
 					+ "			writer.println(\"System.out.print(\\\"Enter the space you want to play on "+players[i%2]+": \\\");\");\r\n"
 					+ "			writer.println(\"input = reader.nextInt();\");\r\n"
-					+ "			board"+i+"[i"+i+"] = '"+players[i%2]+"';\r\n");
+					+ "			board"+i+"["+players[(i - 1)%2]+i+"] = '"+players[i%2]+"';\r\n");
 			}
 			else {
-				writer.println("if(isWon(i"+(i - 1)+", board"+(i - 1)+"))\r\n"
+				writer.println("if(isWon("+players[(i - 1)%2]+(i - 1)+", board"+(i - 1)+"))\r\n"
 						+ "			{"
 						+ "				writer.println(\"System.out.print(\\\""+players[(i - 1)%2]+" Won!\\\");\");\r\n"
 						+ "             writer.println(\"System.exit(0);\");\r\n"
