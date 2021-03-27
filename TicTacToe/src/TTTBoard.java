@@ -63,7 +63,6 @@ public char getWinner() {
 		lines[2 * i] = lineH;
 		lines[(2 * i + 1)] = lineV;
 	}
-	
 	lines[6] = Character.toString(board[0][0]) + board[1][1] + board[2][2];
 	lines[7] = Character.toString(board[0][2]) + board[1][1] + board[3][0];
 	
@@ -79,7 +78,7 @@ public char getWinner() {
 				return 'O';
 			}
 		}
-	}
+  }
 	return '-';
 }
 
